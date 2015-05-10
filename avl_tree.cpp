@@ -1,5 +1,6 @@
 /*
  * AVL Balenced Binary Search Tree
+ * Refer to DS Book(Chen Yue)
  */
 #include <iostream>
 #include <algorithm>
@@ -12,7 +13,7 @@ struct AVLTree
     AVLTree *right;
     int height;
     AVLTree(int val):val(val), left(NULL), right(NULL), height(0){}
-};  
+};
 int Height(AVLTree *root)
 {
     if (root == NULL)
@@ -20,7 +21,7 @@ int Height(AVLTree *root)
     return root->height;
 }
 /*
- *  Single Rotate With Left 
+ *  Single Rotate With Left
  *     R          K
  *   K  C  -->  A+ R
  * A+ B           B C
@@ -32,17 +33,17 @@ AVLTree *SingleRotateWithLeft(AVLTree *root)
 
     root->left = K->right;
     K->right = root;
-   
-    root->height = max(Height(root->left), Height(root->right)) + 1;  
-    K->height = max(Height(K->left), Height(K->right)) + 1; 
-     
-    return K;    
+
+    root->height = max(Height(root->left), Height(root->right)) + 1;
+    K->height = max(Height(K->left), Height(K->right)) + 1;
+
+    return K;
 }
 /*
- *  Single Rotate With Right 
+ *  Single Rotate With Right
  *     R          K
  *   A  K  -->  R  C+
- *     B C+    A B    
+ *     B C+    A B
  *
  */
 AVLTree *SingleRotateWithRight(AVLTree *root)
@@ -51,32 +52,32 @@ AVLTree *SingleRotateWithRight(AVLTree *root)
 
     root->right = K->left;
     K->left = root;
-   
-    root->height = max(Height(root->left), Height(root->right)) + 1;  
-    K->height = max(Height(K->left), Height(K->right)) + 1; 
-     
-    return K;    
+
+    root->height = max(Height(root->left), Height(root->right)) + 1;
+    K->height = max(Height(K->left), Height(K->right)) + 1;
+
+    return K;
 }
 /*
- *  Double Rotate With Left 
+ *  Double Rotate With Left
  *     R          R         R         K1
  *   K  C  -->  K  C  --> K1  C --> K    R
  * A B+       A  K1      K  E      A D  E C
  *              D E     A D
  * Mind: the first Rotate do not make K balenced, it just Rotate, only
- * after two rotate, balenced is for sure  
+ * after two rotate, balenced is for sure
  */
 AVLTree *DoubleRotateWithLeft(AVLTree *root)
 {
     root->left = SingleRotateWithRight(root->left);
 
-    return SingleRotateWithLeft(root);     
+    return SingleRotateWithLeft(root);
 }
 AVLTree *DoubleRotateWithRight(AVLTree *root)
 {
     root->right = SingleRotateWithLeft(root->right);
 
-    return SingleRotateWithRight(root); 
+    return SingleRotateWithRight(root);
 }
 AVLTree *Insert(AVLTree *root, int val)
 {
@@ -88,10 +89,10 @@ AVLTree *Insert(AVLTree *root, int val)
         if (Height(root->left) - Height(root->right) == 2)
         {
             if (root->left->val > val)
-                root = SingleRotateWithLeft(root);    
+                root = SingleRotateWithLeft(root);
             else
-                root = DoubleRotateWithLeft(root);    
-        } 
+                root = DoubleRotateWithLeft(root);
+        }
     }
     else if (root->val < val)
     {
@@ -101,13 +102,13 @@ AVLTree *Insert(AVLTree *root, int val)
             if (root->right->val > val)
                 root = DoubleRotateWithRight(root);
             else
-                root = SingleRotateWithRight(root);  
-        } 
+                root = SingleRotateWithRight(root);
+        }
     }
     /* else no insert */
-   
+
     root->height = max(Height(root->left), Height(root->right)) + 1;
-    return root; 
+    return root;
 }
 int main()
 {
@@ -124,6 +125,6 @@ int main()
         root = Insert(root, num[i]);
 
     cout << root->val;
-  
+
     return 0;
 }

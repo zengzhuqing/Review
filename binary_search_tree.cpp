@@ -4,7 +4,8 @@ using namespace std;
 
  * Binary search tree:
  *  Read operation: Search, FindMax, FindMin, Next, Previous
- *  Write Operation: Insert, Delete   
+ *  Write Operation: Insert, Delete
+ * Refer to DS Book(Chen Yue) 
  */
 #define USE_NEXT_PREVIOUS
 struct Tree{
@@ -32,29 +33,29 @@ Tree *search(Tree *root, int val)
 Tree *FindMin(Tree *root)
 {
     if (root == NULL)
-        return NULL; 
+        return NULL;
     while(root->left != NULL)
     {
-        root = root->left; 
+        root = root->left;
     }
-    return root; 
+    return root;
 }
 Tree *FindMax(Tree *root)
 {
     if (root == NULL)
-        return NULL; 
+        return NULL;
     while(root->right != NULL)
     {
-        root = root->right; 
+        root = root->right;
     }
-    return root; 
+    return root;
 }
 #ifdef USE_NEXT_PREVIOUS
 Tree *next(Tree *cur)
 {
     if (cur == NULL)
         return NULL;
-    
+
     if (cur->right != NULL)
     {
         return FindMin(cur->right);
@@ -65,7 +66,7 @@ Tree *next(Tree *cur)
         {
             if(cur->p->left == cur)
                 return cur->p;
-            cur = cur->p;   
+            cur = cur->p;
         }
         return NULL;
     }
@@ -74,7 +75,7 @@ Tree *previous(Tree *cur)
 {
     if (cur == NULL)
         return NULL;
-    
+
     if (cur->left != NULL)
     {
         return FindMax(cur->left);
@@ -85,7 +86,7 @@ Tree *previous(Tree *cur)
         {
             if(cur->p->right == cur)
                 return cur->p;
-            cur = cur->p;   
+            cur = cur->p;
         }
         return NULL;
     }
@@ -102,19 +103,19 @@ Tree *Insert(Tree *root, int val)
         root->left = Insert(root->left, val);
         #ifdef USE_NEXT_PREVIOUS
         if(root->left != NULL)
-            root->left->p = root; 
-        #endif 
+            root->left->p = root;
+        #endif
     }
     else if (root->val < val)
     {
-        root->right = Insert(root->right, val); 
+        root->right = Insert(root->right, val);
         #ifdef USE_NEXT_PREVIOUS
         if(root->right != NULL)
-            root->right->p = root;  
-        #endif 
+            root->right->p = root;
+        #endif
     }
     /* else not insert */
-    return root;  
+    return root;
 }
 Tree *Delete(Tree *root, int val)
 {
@@ -122,19 +123,19 @@ Tree *Delete(Tree *root, int val)
         return NULL;
     if (root->val > val)
     {
-        root->left = Delete(root->left, val); 
+        root->left = Delete(root->left, val);
         #ifdef USE_NEXT_PREVIOUS
         if(root->left != NULL)
-            root->left->p = root; 
-        #endif 
-    } 
+            root->left->p = root;
+        #endif
+    }
     else if(root->val < val)
     {
         root->right = Delete(root->right, val);
         #ifdef USE_NEXT_PREVIOUS
         if(root->right != NULL)
-            root->right->p = root;  
-        #endif 
+            root->right->p = root;
+        #endif
     }
     else
     {
@@ -147,33 +148,33 @@ Tree *Delete(Tree *root, int val)
             }
             /* now cur is the min of right */
             root->val = cur->val;
-            root->right = Delete(root->right, cur->val);   
+            root->right = Delete(root->right, cur->val);
             #ifdef USE_NEXT_PREVIOUS
             if(root->right != NULL)
-                root->right->p = root;  
-            #endif 
+                root->right->p = root;
+            #endif
         }
         else if(root->left == NULL)
         {
             Tree *tmp = root;
             #ifdef USE_NEXT_PREVIOUS
             if(root->right != NULL)
-                root->right->p = root->p;  
-            #endif 
+                root->right->p = root->p;
+            #endif
             root = root->right;
-            delete tmp;   
+            delete tmp;
         }
         else
         {
             Tree *tmp = root;
             #ifdef USE_NEXT_PREVIOUS
-            root->left->p = root->p;  
-            #endif 
+            root->left->p = root->p;
+            #endif
             root = root->left;
-            delete tmp;   
-        } 
+            delete tmp;
+        }
     }
-    return root; 
+    return root;
 }
 int main()
 {
