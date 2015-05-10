@@ -1,11 +1,12 @@
 #include <iostream>
+#include <cassert>
 using namespace std;
 /*
 
  * Binary search tree:
  *  Read operation: Search, FindMax, FindMin, Next, Previous
  *  Write Operation: Insert, Delete
- * Refer to DS Book(Chen Yue) 
+ * Refer to DS Book(Chen Yue)
  */
 #define USE_NEXT_PREVIOUS
 struct Tree{
@@ -176,6 +177,15 @@ Tree *Delete(Tree *root, int val)
     }
     return root;
 }
+void print(Tree *root)
+{
+    Tree *i;
+    for(i = FindMin(root); i != NULL; i = next(i))
+    {
+        cout << i->val << " ";
+    }
+    cout << endl;
+}
 int main()
 {
     Tree *root = new Tree(5);
@@ -187,6 +197,7 @@ int main()
     Insert(root, 2);
     Insert(root, 9);
     Insert(root, 8);
+    print(root);
     Tree *min = FindMin(root);
     cout << "min: " << min->val << endl;
     Tree *max = FindMax(root);
@@ -200,4 +211,15 @@ int main()
     Insert(root, 3);
     Delete(root, 3);
     Delete(root, 3);
+    root = Delete(root, 5);
+    root = Delete(root, 1);
+    root = Delete(root, 2);
+    root = Delete(root, 4);
+    root = Delete(root, 6);
+    root = Delete(root, 7);
+    root = Delete(root, 8);
+    root = Delete(root, 9);
+    assert(root == NULL);
+
+    return 0;
 }
