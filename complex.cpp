@@ -2,9 +2,9 @@
 using namespace std;
 class Complex
 {
-    friend Complex &read(Complex &c, istream &in);
+    friend istream &read(Complex &c, istream &in);
 //    friend Complex add(const Complex &a, const Complex &b);
-    friend void print(const Complex &a);
+    friend ostream &print(const Complex &a, ostream &out);
     public:
         Complex();
         Complex(double a, double b);
@@ -16,9 +16,9 @@ class Complex
         double a;
         double b;
 };
-Complex &read(Complex &c, istream &in);
+istream &read(Complex &c, istream &in);
 Complex add(const Complex &a, const Complex &b);
-void print(const Complex &a);
+ostream &print(const Complex &a);
 Complex::Complex()
 {
     a = 0;
@@ -45,11 +45,11 @@ Complex &Complex::operator+=(const Complex &c)
     return *this;
 }
 Complex::~Complex(){} 
-Complex &read(Complex &c, istream &in)
+istream &read(Complex &c, istream &in)
 {
     in >> c.a >> c.b;
 
-    return c;
+    return in;
 }
 Complex add(const Complex &a, const Complex &b)
 {
@@ -60,12 +60,11 @@ Complex add(const Complex &a, const Complex &b)
 
     return sum;
 }
-void print(const Complex &c)
+ostream &print(const Complex &c, ostream &out)
 {
-    cout << c.a << " + " << c.b << 'i';
+    out << c.a << " + " << c.b << 'i';
 }
 Complex add(const Complex &a, const Complex &b);
-void print(const Complex &a);
 int main()
 {
 
