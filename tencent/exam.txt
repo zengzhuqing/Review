@@ -1,0 +1,56 @@
+请将答卷、作品及简历压缩后发送到：Campus@tencent.com 邮箱，投递作品请在主题标明：职位+地区+学校+姓名，如：用户研究+北京+北京大学+张三
+    一、   耐心填一填！（每空4分，共24分）
+    1. 为div设置类a与b,应编写HTML代码_<div class=”a b”>_</div>_________。
+    2. 设置CSS属性clear的值为_both___________时可清除左右两边浮动。
+    3.  ____li________标签必须直接嵌套于ul、ol中。
+    4. CSS属性_____margin_______可为元素设置外补丁。
+    5. 设置CSS属性float的值为___none_________时可取消元素的浮动。
+    6. 文字居中的CSS代码是____text-align:center________。
+    二、   精心选一选！（每题4分，共16分）
+    1. 下列哪个样式定义后,内联(非块状)元素可以定义宽度和高度( C  )
+    A. display:inline      B. display:none     C. display:block    D. display:inheric
+    2. 选出你认为最合理的定义标题的方法( C    )
+    A. <span class=”heading”>文章标题</span>
+    B. <p><b>文章标题</b></p>
+    C. <h1>文章标题</h1>
+    D. <strong>文章标题</strong>
+    3. br标签在XHTML中语义为( A    )
+    A.换行          B.强调          C.段落          D.标题
+    4. 不换行必须设置(  A  )
+    A.word-break        B.letter-spacing        C.white-space       D.word-spacing
+    5. 在使用table表现数据时，有时候表现出来的会比自己实际设置的宽度要宽，为此需要设置下面哪些属性值(  AD   )
+    A. cellpadding=”0″      B. padding:0        C. margin:0     D. cellspacing=”0″
+    三、判断对或错！（每题4分，共24分）
+    1. CSS属性font-style 用于设置字体的粗细。                             (  ×   )
+    2. CSS属性overflow用于设置元素超过宽度时是否隐藏或显示滚动条。     (   √  )
+    3. 在不涉及样式情况下,页面元素的优先显示与结构摆放顺序无关。            (   ×  )
+    4. 在不涉及样式情况下,页面元素的优先显示与标签选用无关。                 (   √  )
+    四、一个文件中有40亿个整数，每个整数为四个字节，内存为1GB，写出一个算法：求出这个文件里的整数里不包含的一个整数。下面的代码片段仅仅是一个样例。
+    4个字节的整数最大可表示为2^32=4294967296, 一个数一个数的读入内存，建立一个bit map，共需要4294967296个bits(也就是0.5G字节的内存，并没有超过1G内存的限制)，读入每一个数，置相应的bit为1。
+    1     int N = 20; // # of number
+    2     int M = 1000;   // number range
+    3     std::vector<int> a(N);  // can be imported from external file number by number
+    4     for (int i = 0; i < N; i++)
+    5         a[i] = (int)rand()%M;
+    6     std::copy(a.begin(), a.end(), std::ostream_iterator<int>(std::cout, " "));
+    7     std::cout << "\n";
+    8     // bit map setup for existence of each number
+    9     unsigned int nbytes = M%8 ? (M/8+1) : (M/8);
+    10     std::cout << "nbytes = " << nbytes << "\n";
+    11
+    12     char* p = new char [nbytes];
+    13     memset(p, 0, sizeof(char)*nbytes);
+    14
+    15     for (int i = 0; i < N; i++) {
+    16         unsigned int index = a[i]/8;
+    17         unsigned int bitpos = a[i]%8;
+    18         char* tmp = p+index;
+    19         *tmp |= 1 << bitpos;
+    20         //std::cout << "bit pos set to 1 : " << 8*index+bitpos << "\n";
+    21     }
+    22     for (int i = nbytes-1; i >= 0; i--) {
+    23         printf("%02X ", (char)*(p+i)&0xFF);
+    24     }
+    25     std::cout << "\n";
+    26     delete [] p;
+
